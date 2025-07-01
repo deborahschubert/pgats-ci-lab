@@ -15,10 +15,9 @@ on:
 # trabalhos/tarefas dentro do pipeline = jobs
 jobs:
   e2e-tests:
-  
     #maquina que o job vai executar
     runs-on: ubuntu-latest
-    
+
     # condicional - if
     # '${ expressao }'
     # == comparacao
@@ -26,7 +25,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success'}}
 
     # passos do script de build
-    steps: 
+    steps:
       # clone do projeto
       - uses: actions/checkout@v4
       # instalação do node
@@ -36,15 +35,15 @@ jobs:
       # instalação do Yarn
       - name: Instalando Yarn
         run: npm install -g yarn
-      
+
       # instalação das dependências
       - name: Instalando dependências
         run: yarn
-      
+
       # instalação do Playwright
       - name: Instalando Playwright
         run: yarn playwright install
-      
+
       # executar os testes e2e
       - name: Executando Testes E2E
         run: yarn run e2e
@@ -54,4 +53,3 @@ jobs:
         with:
           name: report
           path: ./playwright-report
-
